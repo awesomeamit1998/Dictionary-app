@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="header">
+      <h1>English Dictionary</h1>
+
+    </div>
+    <div class="wrapper">
+      <div class="words">
+        <input type="text" id="search"placeholder="search....">
+          <button onclick="search()">Go</button>
+          <div id="word_list">
+
+          </div>
+      </div>
+      <div class="word">
+        <h3 id="word_text"></h3>
+        <p id="definition"></p>
+        <hr>
+
+        <h3>Related Words</h3>
+        <li id="related"></li>
+      </div>
+
+    </div>
+    </header>
+  </body>
+</html>
+<script type="text/javascript">
+  var dictionary=[{word:"apple",
+                   def:"A round fruit with seed at its center",
+                    rel:["mango","pear","guava"]},
+                    {word:"baby",
+                    def:"A young one of a human being",
+                    rel:["child","toddler","teen"]},
+                    {word:"retinue",
+                    def:"Salary",
+                    rel:["payment"]},
+                  ];
+                  //fill the dictionary
+                  init=function(){
+                    for (var i = 0; i < dictionary.length; i++) {
+                      document.getElementById('word_list').innerHTML +="<li onclick='show(" + i + ")'>"+dictionary[i].word+"</li>"
+                    }
+                  }
+                  init();
+                  show=function(i){
+                    document.getElementById('word_text').innerHTML=dictionary[i].word;
+                    document.getElementById('definition').innerHTML=dictionary[i].def;
+                    var list="";
+                    for (var j = 0; j < dictionary[i].rel.length; j++) {
+                      list+="<li>" + dictionary[i].rel[j]+"</li>";
+                      document.getElementById('related').innerHTML=list;
+                    }
+                  }
+              search=function(){
+                query=document.getElementById('search').value;
+                if(query==""){
+                  return;
+                }
+                found=-1;
+                for (var i = 0; i < dictionary.length; i++) {
+                if(query==dictionary[i].word){
+                  found=i;
+                  show(found);
+                }
+              }if(found==-1){
+                  document.getElementById("word_text").innerHTML="No related words";
+                }
+
+}
+
+
+
+        </script>
